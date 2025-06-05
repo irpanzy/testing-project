@@ -1,0 +1,13 @@
+node_modules
+.env
+.env.local
+.env.example
+tests/
+coverage/
+.git/
+README.md
+*.md
+.eslintrc.cjs
+.eslintignore
+jest.config.js
+.github/
