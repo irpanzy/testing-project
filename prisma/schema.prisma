@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
 }
 
 datasource db {
@@ -13,6 +12,6 @@ model Car {
   brand String
   model String
   year  Int
-
+  
   @@map("cars")
 }
