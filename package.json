@@ -1,5 +1,5 @@
 {
-  "name": "@irpanzy/tubes-mkepl",
+  "name": "tubes-mkepl",
   "version": "1.0.0",
   "main": "server.js",
   "publishConfig": {

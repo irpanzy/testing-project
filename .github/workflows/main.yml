@@ -23,7 +23,6 @@ jobs:
         with:
           node-version: 20.17.0
           registry-url: "https://npm.pkg.github.com/"
-          scope: "@irpanzy"
 
       - name: 📦 Install dependencies
         run: npm ci
