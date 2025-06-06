@@ -2,12 +2,12 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  build-and-test:
+  build-and-publish:
     runs-on: ubuntu-latest
 
     env:
@@ -15,31 +15,38 @@ jobs:
       PORT: ${{ secrets.PORT || 3000 }}
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20.17.0
+      - name: 🚀 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.17.0
+          registry-url: "https://npm.pkg.github.com/"
+          scope: "@irpanzy"
 
-    - name: Install dependencies
-      run: npm ci
+      - name: 📦 Install dependencies
+        run: npm ci
 
-    - name: Generate Prisma Client
-      run: npm run db:generate
+      - name: 🏗️ Generate Prisma Client
+        run: npm run db:generate
 
-    - name: Push Prisma schema to Neon
-      run: npm run db:push
+      - name: 🗄️ Push Prisma schema to Neon
+        run: npm run db:push
 
-    - name: Run Linting
-      run: npm run lint
+      - name: 🔍 Run Linting
+        run: npm run lint
 
-    - name: Run Unit Tests
-      run: npm run test:unit
+      - name: 🧪 Run Unit Tests
+        run: npm run test:unit
 
-    - name: Run Integration Tests
-      run: npm run test:integration
+      - name: 🔗 Run Integration Tests
+        run: npm run test:integration
 
-    - name: Run E2E Tests
-      run: npm run test:e2e
+      - name: 🌐 Run E2E Tests
+        run: npm run test:e2e
+
+      - name: 🚀 Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
